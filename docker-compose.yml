@@ -1,0 +1,52 @@
+version: "3.9"
+services:
+  # Using Traefik to reverse proxy and route incoming requests port 5000 translates to entrypoint web on port 80
+  traefik:
+    image: traefik:v2.8
+    command: --api.insecure=true --providers.docker --entrypoints.web.address=:80
+    ports:
+      - "4200:80"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+
+  user-interface:
+    build: ./user-interface
+    expose:
+      - 3000
+    ports:
+      - 3000:3000
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.userinterface.entrypoints=web
+      - traefik.http.middlewares.stripprefix-auth.stripprefix.prefixes=/ui
+      - traefik.http.routers.userinterface.rule=PathPrefix(`/ui`)
+      - traefik.http.routers.userinterface.middlewares=stripprefix-auth@docker
+  
+  core-api:
+    build: ./core-api
+    environment:
+      - SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://crimeradar:8eqsso2bJ8yKS5X3@34.67.179.250/crimeradar
+    expose:
+      - 8000
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.coreservice.entrypoints=web
+      - traefik.http.middlewares.stripprefix-core.stripprefix.prefixes=/core
+      - traefik.http.routers.coreservice.rule=PathPrefix(`/core`)
+      - traefik.http.routers.coreservice.middlewares=stripprefix-core@docker
+    depends_on:
+      - postgres
+    ports:
+      - 8000:8000
+
+  util:
+    build: ./utils
+    

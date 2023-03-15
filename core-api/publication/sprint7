@@ -1,0 +1,136 @@
+CREATE INDEX idx_featcode
+    ON web.feature USING btree
+    (code COLLATE pg_catalog."default" ASC NULLS LAST)
+    TABLESPACE pg_default;
+
+ALTER TABLE web.layer
+    ADD COLUMN has_filter boolean;
+
+ALTER TABLE web.profile
+    ADD COLUMN origin text COLLATE pg_catalog."default";
+
+CREATE SEQUENCE web.profile_id_seq
+    INCREMENT 1
+    START 63
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+
+ALTER SEQUENCE web.profile_id_seq
+    OWNER TO crimeradar;
+
+ALTER TABLE web.profile
+    ADD COLUMN id bigint NOT NULL DEFAULT nextval('web.profile_id_seq'::regclass);
+
+CREATE SEQUENCE datalake_ct.hexward_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+
+ALTER SEQUENCE datalake_ct.hexward_id_seq
+    OWNER TO crimeradar;
+
+CREATE TABLE datalake_ct.hexward
+(
+    id bigint NOT NULL DEFAULT nextval('datalake_ct.hexward_id_seq'::regclass),
+    id_hex text COLLATE pg_catalog."default",
+    id_ward bigint,
+    CONSTRAINT hexward_pkey PRIMARY KEY (id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE datalake_ct.hexward
+    OWNER to crimeradar;
+
+CREATE SEQUENCE datalake_sc.hexsetores_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+
+ALTER SEQUENCE datalake_sc.hexsetores_id_seq
+    OWNER TO crimeradar;
+
+CREATE TABLE datalake_sc.hexsetores
+(
+    id bigint NOT NULL DEFAULT nextval('datalake_sc.hexsetores_id_seq'::regclass),
+    id_hex text COLLATE pg_catalog."default",
+    id_setor bigint,
+    CONSTRAINT hexsetores_pkey PRIMARY KEY (id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE datalake_sc.hexsetores
+    OWNER to crimeradar;
+
+
+-- Criar Ward na group = OK
+-- Popular category com valores de Ward = OK
+-- Carregar hexward = OK
+-- Popular filter = OK
+INSERT INTO web.filter (id_group, id_layer) VALUES ((SELECT id FROM web.group WHERE type = 'Wards'), (SELECT id FROM web.layer WHERE name= 'Past Incidents' ))
+
+-- Popular properties com Wards e seus hexagonos
+INSERT INTO web.properties (id_feature,id_category,origin,value,dt_filter)
+SELECT
+    feat.id as id_feature,
+    hex.id_ward as id_categoria,
+    'CT' as origin,
+    COUNT(*) as value,
+    cast(split_part("TS_START", '.', 1) as timestamp with time zone) as dt_filter
+FROM
+    datalake_ct."SRS_ANALYTICS" as in_data,
+    web.feature as feat,
+    datalake_ct.hexward as hex,
+    web.layer as lyr
+where
+    in_data.hex9=feat.code
+and feat.code=hex.id_hex
+and in_data."STATUS_DESCR" in ('Completed','Closed')
+and lyr.id = feat.id_layer
+and lyr.name= 'Past Incidents'
+GROUP BY 1,2,3,5
+
+
+-- Criar Setores na group = OK
+-- Popular category com valores de Setores = OK
+-- Carregar hexsetores = OK
+-- Popular filter = OK
+INSERT INTO web.filter (id_group, id_layer) VALUES ((SELECT id FROM web.group WHERE type = 'Setores'), (SELECT id FROM web.layer WHERE name= 'Incidentes' ))
+
+-- Popular properties com Setores e seus hexagonos
+INSERT INTO web.properties (id_feature,id_category,origin,value,dt_filter)
+SELECT 
+    feat.id as id_feature, 
+    hw.id_setor as id_categoria, 
+    'SC' as origin, 
+    COUNT(DISTINCT in_data."ID_ATENDIMENTO") as value, 
+    TO_TIMESTAMP(in_data."DATA_HORA_FATO",'DD/MM/YYYY') as dt_filter
+FROM 
+    datalake_sc."ATENDIMENTOS" as in_data
+INNER JOIN datalake_sc.hex_atendimento as ha
+    ON in_data."ID_ATENDIMENTO"=ha."ID_ATENDIMENTO"
+INNER JOIN datalake_sc.hexsetores as hw
+    ON hw.id_hex= (replace(ha.x_index,'.0','')||'_'||replace(ha.y_index,'.0',''))
+INNER JOIN web.feature as feat  
+    ON  feat.code = hw.id_hex
+INNER JOIN web.layer as lyr 
+    ON      lyr.id = feat.id_layer 
+        and lyr.name = 'Incidentes'
+WHERE
+    in_data."SITUACAO"='1'
+GROUP BY 1,2,3,5
+
+
+UPDATE web.layer SET name = 'Epic Past Incident' WHERE name = 'Past Incidents';
+UPDATE web.layer SET name = 'Epic Pred. - F1' WHERE name = 'Predictions F1';
+UPDATE web.layer SET name = 'Epic Pred. - F2' WHERE name = 'Predictions F2';
+UPDATE web.layer SET name = 'CCTV - Past Incidents' WHERE name = 'CCTV - Past';
+
+update web.layer set has_date = 'TRUE'
+update web.layer set has_filter = 'TRUE' where id_layer in (1,15,4)
