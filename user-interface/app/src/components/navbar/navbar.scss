@@ -1,0 +1,59 @@
+  .global-overlap-index {
+    z-index: 9999 !important;
+  }
+
+  .map-loading {
+    position: absolute;
+    width: 100%;
+  }
+
+  .logo-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .logo {
+      width: auto;
+      height: 30px;
+    }
+  }
+  
+  .nav {
+    //display: contents;
+    height: 100%;
+  }
+
+  // desktop
+  @media (min-width: 768px) {
+   
+  }
+
+
+  // mobile
+  @media (max-width: 768px) {
+    .v-toolbar__title { padding-left: 0 !important; }
+    .navbar-toolbar-mobile {
+      display: grid; grid-template-columns: 1fr 1fr 5fr; align-items: center
+    }
+    
+    .mobile-drawer {
+      width: 100vh !important;
+      opacity: 0.95;
+      .drawer-actions-wrapper {
+        position: absolute;
+        bottom: 0;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        padding: 10px;
+        width: 100%;
+        .drawer-actions-buttons {
+          display: grid;
+          grid-auto-flow: column;
+          grid-gap: 10px;
+          margin: auto;
+        }
+        
+      }
+    }
+
+  }

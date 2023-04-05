@@ -1,0 +1,93 @@
+.login-page {
+    overflow: auto;
+    filter: brightness(80%);
+    height: 100vh;
+    background-image: url("../../assets/images/background.jpg");
+    background-position: center;
+    background-size: cover;
+
+    .change-language {
+        display: flex;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        padding: 10px;
+        font-size: 12px;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        
+            .language {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                .language-item {
+                    cursor: pointer;
+                }
+                .bullet {
+                    margin-left: 5px;
+                    margin-right: 5px;
+                }
+            }
+        
+    }
+    .login-form-wrapper {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .login-form {
+            border: 1px solid #000;
+            background-color: #080808;
+            opacity: 0.9;
+            color: white;
+            max-width: 360px;
+            width: 60%;
+            .form-header {
+                margin-bottom: 10px;
+            }
+            .form-body {
+                padding: 0 25px 10px 25px;
+                .form-fields {
+                    margin-bottom: 10px;
+                    .v-text-field__details {
+                        justify-content: flex-end;
+                    }
+                }
+                .form-actions {
+                    .form-actions-links {
+                        display: flex;
+                        justify-content: flex-end;
+                        margin: 0 0 15px 0;
+                        color: #b5b5b5;
+                        font-size: 12px;
+                        div {
+                            cursor: pointer;
+                            &:hover {
+                                color: #FFF;
+                            }
+                        }
+                        
+                    }
+                }
+            }
+            .form-footer {
+                position: relative;
+                height: 20px;
+                color: #b5b5b5;
+                .system-version {
+                    position: absolute;
+                    right: 10px;
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 960px) {
+    .login-form {
+        width: 90% !important;
+    }
+}
