@@ -1,4 +1,5 @@
 from __future__ import with_statement
+from flask import current_app
 
 import logging
 from logging.config import fileConfig
@@ -21,7 +22,6 @@ logger = logging.getLogger('alembic.env')
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-from flask import current_app
 config.set_main_option(
     'sqlalchemy.url', current_app.config.get(
         'SQLALCHEMY_DATABASE_URI').replace('%', '%%'))
@@ -47,17 +47,11 @@ def run_migrations_offline():
     """
     url = config.get_main_option("sqlalchemy.url")
     context.configure(
-        url=url, target_metadata=target_metadata, literal_binds=True, include_object=include_object, include_schemas=True
+        url=url, target_metadata=target_metadata, literal_binds=True
     )
 
     with context.begin_transaction():
         context.run_migrations()
-
-
-def include_object(object, name, type_, reflected, compare_to):
-    if type_ == 'table' and ((object.schema != "web") or (reflected and compare_to is None)):
-        return False
-    return True
 
 
 def run_migrations_online():
@@ -89,8 +83,6 @@ def run_migrations_online():
             connection=connection,
             target_metadata=target_metadata,
             process_revision_directives=process_revision_directives,
-            include_object=include_object,
-            include_schemas=True,
             **current_app.extensions['migrate'].configure_args
         )
 

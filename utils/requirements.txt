@@ -1,3 +1,5 @@
 h3
 click
 pydantic
+psycopg2
+sqlalchemy
