@@ -33,7 +33,7 @@ services:
   core-api:
     build: ./core-api
     environment:
-      - SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://crimeradar:8eqsso2bJ8yKS5X3@34.67.179.250/crimeradar
+      - SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://crimeradar:8eqsso2bJ8yKS5X3@34.67.179.250/teste
     expose:
       - 8000
     labels:
@@ -47,12 +47,12 @@ services:
     ports:
       - 8000:8000
 
-  migrate:
-    build: ./core-api
-    environment:
-      - SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://crimeradar:8eqsso2bJ8yKS5X3@34.67.179.250/teste
-    command: flask db upgrade
-    depends_on:
-      - postgres
-      - core-api
+  # migrate:
+  #   build: ./core-api
+  #   environment:
+  #     - SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://crimeradar:8eqsso2bJ8yKS5X3@34.67.179.250/teste
+  #   command: flask db upgrade
+  #   depends_on:
+  #     - postgres
+  #     - core-api
     
