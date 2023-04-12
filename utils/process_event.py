@@ -24,7 +24,8 @@ def extract_data():
             # Loop through row to find the date and lat and lng in the header
             row = f.readline().split(',')
             for ind, r in enumerate(row):
-                if r == 'date':
+                print(r)
+                if 'date' in r:
                     date_ind = ind
                 if r == 'lat':
                     lat_ind = ind
@@ -33,7 +34,6 @@ def extract_data():
 
             # Use schema datalake
             conn.execute(text("SET search_path TO datalake"))
-
             for row in f:
                 row_splited = row.split(',')
                 print(row_splited[date_ind])
