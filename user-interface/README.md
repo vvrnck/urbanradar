@@ -1,4 +1,4 @@
-# crimeradar-ui
+# Urban Map ui
 
 ## About the project
 

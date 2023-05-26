@@ -4,17 +4,14 @@
     "change_password": "Trocar Senha",
     "forgot_password": "Esqueceu a senha?",
     "btn_login": "Entrar",
-
     "snackbar_close": "Fechar",
-
-    "system_welcome": "Bem Vindo ao CrimeRadar!",
+    "system_welcome": "Bem Vindo ao Urban Map!",
     "system_welcome_text_1": "Este é o ",
     "system_welcome_text_2": "uma plataforma que permite visualizar dados georeferenciados através de diferentes camadas!",
     "system_welcome_text_3": "Nós preparamos um ",
     "system_welcome_text_4": "para você, gostaria de continuar?",
     "system_welcome_btn_no": "Não, obrigado",
     "system_welcome_btn_yes": "Sim, claro",
-
     "map": "Mapa",
     "management": "Gerenciamento",
     "feedback": "Reporte",
@@ -25,7 +22,6 @@
     "change_language": "Trocar Idioma",
     "change_theme": "Trocar Tema",
     "tour": "Tour",
-    
     "type": "Tipo",
     "hexagon": "Hexágono",
     "scale": "Escala de Cor",
@@ -34,14 +30,11 @@
     "icon": "Ícones",
     "marker": "Marcadores",
     "point": "Pontos",
-
     "btn_apply": "Aplicar",
     "btn_reset": "Resetar",
-
     "date": "Data",
     "texture": "Textura",
     "filters": "Filtros",
-
     "layers": "Camadas",
     "color": "Cor",
     "start_date": "Data Inicial",
@@ -50,10 +43,8 @@
     "general_informations": "Informações Gerais",
     "features": "Features",
     "incidents": "Incidentes",
-
     "legend": "Legenda",
     "menu": "Menu",
-
     "quick_filter": "Filtro Rápido",
     "previous_day": "-1 dia",
     "previous_week": "-1 semana",
@@ -63,7 +54,6 @@
     "next_week": "+1 semana",
     "next_month": "+1 mês",
     "next_year": "+1 ano",
-
     "interest_point": "Ponto de Interesse",
     "key_facilities": "Pontos de Interesse",
     "name": "Nome",
@@ -83,7 +73,6 @@
     "fields": "Campos",
     "old_value": "Valor Antigo",
     "new_value": "Novo Valor",
-
     "users": "Usuários",
     "role": "Perfil",
     "roles": "Perfis",
@@ -120,13 +109,11 @@
     "dialog_edit": "Editar",
     "dialog_delete": "Deletar",
     "dialog_close": "Fechar",
-
     "user": "Usuário",
     "title": "Título",
     "description": "Descrição",
     "images": "Imagens",
     "btn_send_file": "Enviar",
-
     "sections": "Seções",
     "add_section": "Adicionar Seção",
     "edit_section": "Editar Seção",
@@ -136,7 +123,6 @@
     "field_order": "Ordem",
     "field_en": "Inglês",
     "field_pt": "Português",
-    
     "add_layer": "Adicionar Camada",
     "edit_layer": "Editar Camada",
     "delete_layer": "Deletar Camada",
@@ -145,7 +131,6 @@
     "field_configurable": "Configurável",
     "field_active": "Ativa",
     "field_editable": "Editável",
-
     "error_firebase": "Erro ao realizar login, tente novamente",
     "no_email_provided": "Email não fornecido, preencha o campo",
     "success_reset_password": "Um email foi enviado para sua caixa",

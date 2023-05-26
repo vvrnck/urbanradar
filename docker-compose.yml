@@ -29,6 +29,7 @@ services:
       - traefik.http.middlewares.stripprefix-auth.stripprefix.prefixes=/ui
       - traefik.http.routers.userinterface.rule=PathPrefix(`/ui`)
       - traefik.http.routers.userinterface.middlewares=stripprefix-auth@docker
+    container_name: user-interface
   
   core-api:
     build: ./core-api
@@ -50,7 +51,7 @@ services:
   # migrate:
   #   build: ./core-api
   #   environment:
-  #     - SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://crimeradar:8eqsso2bJ8yKS5X3@34.67.179.250/teste
+  #     - SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://crimeradar:8eqsso2bJ8yKS5X3@34.67.179.250/teste2
   #   command: flask db upgrade
   #   depends_on:
   #     - postgres

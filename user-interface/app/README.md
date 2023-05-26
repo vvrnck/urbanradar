@@ -15,7 +15,7 @@ The crendentials can be found on ```account.txt``` file.
 
 ## Mobile
 
-The mobile application is a another project inside crimeradar. The project detects if an user is on a desktop or mobile, and then shows the interface accordingly.
+The mobile application is a another project inside Urban Map. The project detects if an user is on a desktop or mobile, and then shows the interface accordingly.
 
 Mobile version has a goal to be more intuitive for the final user, thus easier and with less options. Mainly focused on a field user with a single clicks away to get the expected result.
 

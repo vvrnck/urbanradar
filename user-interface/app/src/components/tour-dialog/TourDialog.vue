@@ -13,7 +13,7 @@
                 </v-toolbar>
                 <v-card-text>
                     <div class="subtitle-1 pa-8">
-                        {{ $t('system_welcome_text_1') }} <b>CRIMERADAR</b>, {{ $t('system_welcome_text_2') }} <br><br> 
+                        {{ $t('system_welcome_text_1') }} <b>Urban Map</b>, {{ $t('system_welcome_text_2') }} <br><br> 
                         {{ $t('system_welcome_text_3') }} <b>TOUR</b> {{ $t('system_welcome_text_4') }}
                     </div>
                 </v-card-text>

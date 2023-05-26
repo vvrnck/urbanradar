@@ -4,7 +4,7 @@
             <div class="login-form">
                 <v-form>
                     <div class="form-header">
-                        <img src="../../assets/images/logo.svg" alt="CrimeRadar" />
+                        <img src="../../assets/images/logo.svg" alt="UrbanMap" />
                         <Loading color="#52FFEE" v-if="loading" type="linear" />
                     </div>
                     <div class="form-body">

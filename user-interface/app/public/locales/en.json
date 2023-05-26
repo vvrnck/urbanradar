@@ -4,17 +4,14 @@
     "change_password": "Change Password",
     "forgot_password": "Forgot Password?",
     "btn_login": "Login",
-
     "snackbar_close": "Close",
-
-    "system_welcome": "Welcome to CrimeRadar!",
+    "system_welcome": "Welcome to Urban Map!",
     "system_welcome_text_1": "This is the ",
     "system_welcome_text_2": "the system provides georeference data that you can visualize over differents layers in a map!",
     "system_welcome_text_3": "We prepared a ",
     "system_welcome_text_4": "for you, would you like to continue?",
     "system_welcome_btn_no": "No, thanks",
     "system_welcome_btn_yes": "Yes, sure",
-    
     "map": "Map",
     "management": "Management",
     "feedback": "Feedback",
@@ -25,7 +22,6 @@
     "change_language": "Change Language",
     "change_theme": "Change Theme",
     "tour": "Tour",
-
     "type": "Type",
     "hexagon": "Hexagon",
     "scale": "Color Scale",
@@ -34,14 +30,11 @@
     "icon": "Icons",
     "marker": "Markers",
     "point": "Points",
-
     "btn_apply": "Apply",
     "btn_reset": "Resetar",
-
     "date": "Date",
     "texture": "Texture",
     "filters": "Filters",
-
     "layers": "Layers",
     "color": "Color",
     "start_date": "Start Date",
@@ -50,10 +43,8 @@
     "general_informations": "General Informations",
     "features": "Features",
     "incidents": "Incidents",
-
     "legend": "Legend",
     "menu": "Menu",
-    
     "quick_filter": "Quick Filter",
     "previous_day": "-1 day",
     "previous_week": "-1 week",
@@ -63,7 +54,6 @@
     "next_week": "+1 week",
     "next_month": "+1 month",
     "next_year": "+1 year",
-
     "interest_point": "Interest Points",
     "key_facilities": "Key Facilities",
     "name": "Name",
@@ -83,7 +73,6 @@
     "fields": "Fields",
     "old_value": "Old Value",
     "new_value": "New Value",
-    
     "users": "Users",
     "role": "Profile",
     "roles": "Profiles",
@@ -119,14 +108,11 @@
     "dialog_edit": "Edit",
     "dialog_delete": "Delete",
     "dialog_close": "Close",
-
     "user": "User",
     "title": "Title",
     "description": "Description",
     "images": "Images",
     "btn_send_file": "Send",
-
-
     "sections": "Sections",
     "add_section": "Add Section",
     "edit_section": "Edit Section",
@@ -136,7 +122,6 @@
     "field_order": "Order",
     "field_en": "English",
     "field_pt": "Portuguese",
-    
     "add_layer": "Add Layer",
     "edit_layer": "Edit Layer",
     "delete_layer": "Delete Layer",
@@ -145,8 +130,6 @@
     "field_configurable": "Configurable",
     "field_active": "Active",
     "field_editable": "Editable",
-    
-
     "error_firebase": "Error on login, please try again",
     "no_email_provided": "No email provided, fill email field",
     "success_reset_password": "A email has sent to your mailbox",

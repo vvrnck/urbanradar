@@ -17,7 +17,6 @@ WORKDIR /crimeradar-ui
 COPY --from=builder /src .
 
 RUN yarn account
-RUN cat ./app/account.txt
 
 EXPOSE 3000
 

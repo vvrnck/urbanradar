@@ -8,6 +8,7 @@ Create Date: 2023-03-28 11:29:53.130758
 from alembic import op
 import sqlalchemy as sa
 from sqlalchemy.dialects import postgresql
+from sqlalchemy import orm
 
 # revision identifiers, used by Alembic.
 revision = '064054375ecb'
@@ -505,6 +506,54 @@ def upgrade():
                     )
     op.create_index(op.f('ix_web_Properties_feature_id'), 'Properties', [
                     'feature_id'], unique=False, schema='web')
+    # create User for each User name
+    op.execute("INSERT INTO web.\"Tenant\" (id, name, city, city_code, country, status, last_update, creation_date) VALUES (1, 'Criciuma', 'Criciuma', 'SC', 'Santa Catarina', 1, '2021-02-08 16:21:06.000000', '2021-02-08 16:21:09.000000')")
+    op.execute(
+        "INSERT INTO web.\"Section\" (id, tenant, name, icon, \"order\", label, creation_date, last_update) VALUES (1, 1, ''Past Incidents'', ''mdi-layers'', 1, ''{ \"en\":\"Past Incidents\", \"pt\":\"Ocorrências\" }'', ''2021 - 10 - 22 00:21:56.000000'', ''2021 - 10 - 22 00:21:56.000000'')")
+
+    op.execute("INSERT INTO web.\"User\" (uid, name, email, active) SELECT 'vCeFFximIXayqXsMuV6aFsT01c02', 'gabriel', 'gabriel@igarape.org.br', true")
+    op.execute("INSERT INTO web.\"Layer\" (id, tenant, id_section, name, selected, \"order\", active, style, editable, label, configurable, creation_date, last_update) VALUES (1, 1, 1, 'Ocorrências', false, 2, true, '{\"colorScale\": { \"point\": {} , \"polygon\": [\"hsl(230, 100%, 50%)\", \"hsl(180, 100%, 50%)\", \"hsl(120, 100%, 50%)\", \"hsl(60, 100%, 50%)\", \"hsl(0, 100%, 50%)\"], \"image_overlay\": [] }, \"color\": \"#FFFFFF\", \"types\": [{\"name\": \"scale\", \"value\": true, \"icon\": \"mdi-palette\", \"label\": \"scale\"}, {\"name\": \"hexagon\", \"value\": false, \"icon\": \"mdi-format-paint\", \"label\": \"hexagon\"}, {\"name\": \"icon\", \"value\": false, \"icon\": \"mdi-star-circle\", \"label\": \"icon\"}, {\"name\": \"marker\", \"value\": false, \"icon\": \"mdi-map-marker\", \"label\": \"marker\"}, {\"name\": \"point\", \"value\": false, \"icon\": \"mdi-brightness-1\", \"label\": \"point\"}], \"texture\": {\"value\": \"NONE\", \"options\": [\"NONE\", \"HORIZONTAL\", \"VERTICAL\"]}, \"extra_props\": { \"marker\": { \"image\": \"\", \"icon\": \"pin-black.png\"}, \"image_overlay\": {}, \"polygon\": {}, \"point\": {}, \"mobile\": true, \"type\": \"!icon\" }}', false, '{\"en\": \"Emergency Calls\", \"pt\": \"Ocorr\u00eancias\"}', true, '2021-09-20 11:06:31.000000', '2021-10-04 22:24:01.715321')")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (1, 'View navbar Map Page Option', 'map.view', 'Map Option View', '2021-02-08 16:31:39.000000', '2021-02-08 16:31:42.000000')")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (2, 'View optimization Option', 'optimization.view', 'Optimization Option View', '2021-02-08 16:31:39.000000', '2021-02-08 16:31:42.000000')")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (4, 'View helper Option', 'helper.view', 'Helper Option View', '2021-02-08 16:31:39.000000', '2021-02-08 16:31:42.000000')")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (5, 'Select layers in sidebar menu', 'map.layer.view', 'Layers View', '2021-02-08 16:31:39.000000', '2021-02-08 16:31:42.000000')")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (6, 'Select reset button option', 'map.reset.view', 'View Reset Button', '2021-02-08 16:31:39.000000', '2021-02-08 16:31:42.000000')")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (7, 'Select apply button option', 'map.apply.view', 'View Apply Button', '2021-02-08 16:31:39.000000', '2021-02-08 16:31:42.000000')")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (8, 'Select filter options', 'map.filter.view', 'View and Select Filters', '2021-02-08 16:31:39.000000', '2021-02-08 16:31:42.000000')")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (9, 'Select dates options', 'map.date.view', 'View and Select calendar dates', '2021-02-08 16:31:39.000000', '2021-02-08 16:31:42.000000')")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (10, 'Select texture options', 'map.texture.view', 'View and Select different textures', '2021-02-08 16:31:39.000000', '2021-02-08 16:31:42.000000')")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (11, 'Select map types', 'map.type.view', 'View box and Select Map types', '2021-02-08 16:31:39.000000', '2021-02-08 16:31:42.000000');")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (12, 'View Map Captions', 'map.caption.view', 'View Map Captions floating options', '2021-02-08 16:31:39.000000', '2021-02-08 16:31:42.000000');")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (13, 'View Toolbox', 'map.toolbox.view', 'View and use Toolbox', '2021-02-08 16:31:39.000000', '2021-02-08 16:31:42.000000')")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (14, 'View SearchBar', 'map.search.view', 'View and use Searchbar', '2021-02-08 16:31:39.000000', '2021-02-08 16:31:42.000000')")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (15, 'View Controls Pane', 'map.control.view', 'View and use Controls Pane', '2021-02-08 16:31:39.000000', '2021-02-08 16:31:42.000000')")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (16, 'List Users', 'user.list.view', 'List Users and use Filters', '2021-02-08 16:31:39.000000', '2021-02-08 16:31:42.000000')")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (17, 'Create Users', 'user.create', 'Create users in Tenant', '2021-02-08 16:31:39.000000', '2021-02-08 16:31:42.000000')")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (18, 'Delete Users', 'user.delete', 'Delete a user from a Tenant', '2021-02-08 16:31:39.000000', '2021-02-08 16:31:42.000000')")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (19, 'Associate Profiles to Users', 'user.edit', 'Edit a user in Tenant', '2021-02-08 16:31:39.000000', '2021-02-08 16:31:42.000000')")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (20, 'View Reports', 'report.search.view', 'View Reports', '2021-02-08 16:31:39.000000', '2021-02-08 16:31:42.000000')")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (21, 'Edit Status Reports', 'report.status.edit', 'Edit Status Reports', '2021-02-08 16:31:39.000000', '2021-02-08 16:31:42.000000')")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (22, 'View Predictions', 'prediction.list.view', 'View Predictions Reports', '2021-02-08 16:31:39.000000', '2021-02-08 16:31:42.000000')")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (23, 'Search Predictions', 'prediction.search.view', 'Search Predictions Reports', '2021-02-08 16:31:39.000000', '2021-02-08 16:31:42.000000')")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (24, 'Associate Roles to Users and Scopes', 'role.edit', 'Edit a role in Tenant', '2021-02-08 16:31:39.000000', '2021-02-08 16:31:42.000000')")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (25, 'Create Roles', 'role.create', 'Create a role in Tenant', '2021-02-08 16:31:39.000000', '2021-02-08 16:31:42.000000')")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (26, 'Delete Roles', 'role.delete', 'Delete a role in Tenant', '2021-02-08 16:31:39.000000', '2021-02-08 16:31:42.000000')")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (27, 'List Roles', 'role.list.view', 'List roles in Tenant', '2021-09-28 15:01:06.000000', '2021-09-28 15:01:08.000000')")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (28, 'Scope List', 'scope.list.view', 'List scopes in Tenant', '2021-09-28 15:02:43.000000', '2021-09-28 15:02:46.000000')")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (29, 'Management View ', 'management.view', 'Management View', '2021-09-28 15:01:06.000000', '2021-09-28 15:01:08.000000')")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (30, 'Feedback View', 'feedback.view', 'Feedback View', '2021-09-28 15:02:43.000000', '2021-09-28 15:02:46.000000')")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (31, 'Administration View', 'administration.view', 'Administration View', '2021-09-28 15:02:43.000000', '2021-09-28 15:02:46.000000')")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (32, 'Section Create', 'section.create', 'Create Sections in Tenant', '2021-09-28 15:02:43.000000', '2021-09-28 15:02:46.000000')")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (33, 'Section List View', 'section.list.view', 'List Sections in Tenant', '2021-09-28 15:02:43.000000', '2021-09-28 15:02:46.000000')")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (34, 'Section Edit', 'section.edit', 'Edit Sections in Tenant', '2021-09-28 15:02:43.000000', '2021-09-28 15:02:46.000000')")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (35, 'Section Delete', 'section.delete', 'Delete Sections in Tenant', '2021-09-28 15:02:43.000000', '2021-09-28 15:02:46.000000')")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (36, 'Layer Create', 'layer.create', 'Create new Layers in Tenant', '2021-09-28 15:02:43.000000', '2021-09-28 15:02:46.000000')")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (37, 'Layer List View', 'layer.list.view', 'List Layers in Tenant', '2021-09-28 15:02:43.000000', '2021-09-28 15:02:43.000000')")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (38, 'Layer Edit', 'layer.edit', 'Edit Layers in Tenant', '2021-09-28 15:02:43.000000', '2021-09-28 15:02:43.000000');")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (39, 'Layer Delete', 'layer.delete', 'Delete Layers in Tenant', '2021-09-28 15:02:43.000000', '2021-09-28 15:02:43.000000');")
+    op.execute("INSERT INTO web.\"Scope\" (id, description, key, name, last_update, creation_date) VALUES (3, 'View user feedback Option', 'feedback.view', 'User Feedback Option View', '2021-02-08 16:31:39.000000', '2021-02-08 16:31:42.000000');")
+
+    session.commit()
     # ### end Alembic commands ###
 
 

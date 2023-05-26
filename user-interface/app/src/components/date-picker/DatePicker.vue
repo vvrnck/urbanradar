@@ -39,8 +39,7 @@ export default {
 
             this.availableDates = data;
         }).catch(err => {
-            const snackbar = { open: true, color: '', text: 'error_load_calendar', timeout: 2500, type: 'error' }; 
-            this.$store.dispatch('updateSnackbar', snackbar);
+            console.log(err);
         })
     },
     methods: {

@@ -12,9 +12,7 @@ export default {
             isMobile: true,
             items: [
                 { icon: "mdi-map", name: "map", label: "Map", scopes: ["map.view"], route: "map" },
-                { icon: "mdi-account-multiple", name: "management", label: "Management", scopes: ["management.view"], route: "management" },
-                { icon: "mdi-comment-multiple", name: "feedback", label: "User Feedback", scopes: ["feedback.view"], route: "feedback" },
-                { icon: "mdi-help-circle", name: "helper", label: "Helper", scopes: [], route: "help", isLink: true },       
+                { icon: "mdi-account-multiple", name: "management", label: "Management", scopes: ["management.view"], route: "management" },      
                 { icon: "mdi-cog", name: "admin", label: "Admin", scopes: ["administration.view"], route: "admin" },    
             ],   
             options: [
