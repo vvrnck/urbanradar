@@ -13,7 +13,7 @@ RUN yarn build
 
 # production
 FROM node:16.16.0-alpine as production-stage
-WORKDIR /crimeradar-ui
+WORKDIR /frontend
 COPY --from=builder /src .
 
 RUN yarn account

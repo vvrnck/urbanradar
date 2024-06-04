@@ -49,7 +49,7 @@ app.use(history({
 }));
 app.use(staticFileMiddleware);
 
-// start express server on port 3000
+// start express server
 app.listen(PORT, () => {
-  console.log(`server started on port ${PORT}`);
+  console.log(`frontend server started on port ${PORT}`);
 });

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { isEmpty, reject } from 'lodash';
+import { isEmpty } from 'lodash';
 import store from '../store/store';
 import router from '../routes/router';
 import firebase from 'firebase/app';
@@ -20,7 +20,7 @@ export const getApi = (endpoint, params = {}) => {
     })
   }
   
-  if (ENV !== 'production') console.info('%cRequesting: ' + url, "color: #000; font-style: italic; background-color: #52FFEE; padding: 2px");
+  if (ENV !== 'production') console.info('%cRequesting: ' + url, "color: #000; font-style: italic; background-color: #643b9f; padding: 2px");
 
   return url;
 }

@@ -16,8 +16,8 @@ class User(db.Model):
 
     user_role_tenant = db.relationship("UserRoleTenant", lazy='select', cascade="all, save-update, delete, delete-orphan")
 
-    def __init__(self, uid, name, email, active, **kwargs):
-        self.id = uuid.uuid1().int >> 100
+    def __init__(self, id, uid, name, email, active, **kwargs):
+        self.id = id
         self.uid = uid
         self.name = name
         self.email = email

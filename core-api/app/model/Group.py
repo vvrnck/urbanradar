@@ -2,7 +2,7 @@ from ext import db
 
 
 class Group(db.Model):
-    __tablename__ = 'group'
+    __tablename__ = 'Group'
 
     __table_args__ = {'schema': 'web'}
 

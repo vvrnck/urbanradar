@@ -1,5 +1,5 @@
 from app.model.Role import Role
-from app.model.role_scope import RoleScope
+from app.model.RoleScope import RoleScope
 from app.model.Scope import Scope
 from app.model.User import User
 from app.model.UserRoleTenant import UserRoleTenant

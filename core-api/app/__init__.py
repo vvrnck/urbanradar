@@ -28,11 +28,13 @@ def create_app(conf=Config):
     
     compress.init_app(app)
 
-    client = secretmanager.SecretManagerServiceClient()
-    secret_manager_name = f"projects/{os.environ.get('PROJECT_ID')}/secrets/{os.environ.get('SECRET_ID')}/versions/latest"
-    response = client.access_secret_version(request={"name": secret_manager_name})
-    payload = json.loads(response.payload.data.decode("UTF-8"))
-    cred = credentials.Certificate(payload)
+    # client = secretmanager.SecretManagerServiceClient()
+    # secret_manager_name = f"projects/{os.environ.get('PROJECT_ID')}/secrets/{os.environ.get('SECRET_ID')}/versions/latest"
+    # response = client.access_secret_version(request={"name": secret_manager_name})
+    # payload = json.loads(response.payload.data.decode("UTF-8"))
+    # cred = credentials.Certificate(payload)
+    service_account = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')
+    cred = credentials.Certificate(service_account)
 
     firebase_admin.initialize_app(cred)
 

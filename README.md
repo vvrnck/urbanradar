@@ -7,7 +7,7 @@ Urban Radar is a geospatial open-source product that allows users to input and s
 To run Urban Radar, you will need to have Docker installed. Once Docker is installed, you can run the following command:
 
 ```
-docker-compose up
+docker compose up --build
 ```
 
 This will start the application and all its modules. 
@@ -15,6 +15,10 @@ This will start the application and all its modules.
 It's also possible to run Urban Radar on any docker friendly cloud product like Cloud Run, App Engine Flex, Kubernetes or EKS.
 
 ## Modules
+
+### `database`
+
+The `database` module is a PostgreSQL 14 database to store your data. Use this module to init your database if necessary.
 
 ### `core-api`
 
@@ -27,6 +31,10 @@ The `user-interface` module includes the frontend interface for Urban Radar. Thi
 ### `utils`
 
 The `utils` module includes various ETL scripts and other utilities that are used by the `core-api` and `user-interface` modules. 
+
+### `geojson-grid`
+
+The `geojson-grid` should be used to create the delimiter hexagons grid that the application will use.
 
 ## Usage
 

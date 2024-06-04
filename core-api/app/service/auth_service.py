@@ -7,7 +7,7 @@ from app.model.Role import Role
 from app.model.Scope import Scope
 from app.model.Tenant import Tenant
 from app.model.UserRoleTenant import UserRoleTenant
-from app.model.role_scope import RoleScope
+from app.model.RoleScope import RoleScope
 from app.service import user_service
 from app.model.FeatureCollection import FeatureCollection
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer

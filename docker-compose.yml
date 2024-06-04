@@ -10,15 +10,35 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
   
-  postgres:
-    image: postgres
+  # postgres:
+  #   image: postgres
+  #   environment:
+  #     - POSTGRES_PASSWORD=postgres
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_DB=postgres
+
+
+  db:
+    build:
+      context: ./database
+      dockerfile: Dockerfile
+    image: postgres-db
+    restart: unless-stopped
+    ports:
+      - 5432:5432
     environment:
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_DB=postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    # volumes:
+    #   - ./database/init-schema.sql:/docker-entrypoint-initdb.d/init-schema.sql
 
   user-interface:
     build: ./user-interface
+    env_file:
+      - ./user-interface/.env
+    # volumes:
+    #   - ./user-interface/account:/frontend/app/account.txt
     expose:
       - 3000
     ports:
@@ -34,7 +54,11 @@ services:
   core-api:
     build: ./core-api
     environment:
-      - SQLALCHEMY_DATABASE_URI=database
+      - SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://postgres:postgres@urbanradar-db-1:5432/postgres
+    env_file:
+      - ./core-api/.env
+    volumes:
+      - ./core-api:/app
     expose:
       - 8000
     labels:
@@ -43,15 +67,16 @@ services:
       - traefik.http.middlewares.stripprefix-core.stripprefix.prefixes=/core
       - traefik.http.routers.coreservice.rule=PathPrefix(`/core`)
       - traefik.http.routers.coreservice.middlewares=stripprefix-core@docker
+    command: make migrate fixture start
     depends_on:
-      - postgres
+      - db
     ports:
       - 8000:8000
 
   # migrate:
   #   build: ./core-api
   #   environment:
-  #     - SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://crimeradar:8eqsso2bJ8yKS5X3@34.67.179.250/teste2
+  #     - SQLALCHEMY_DATABASE_URI=database
   #   command: flask db upgrade
   #   depends_on:
   #     - postgres

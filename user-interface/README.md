@@ -1,10 +1,10 @@
-# Urban Map ui
+# Urban Map UI
 
 ## About the project
 
 The project uses the Vue.js framework, aiming interface componentization - in this way is possible to streamline development, just reusing the code already created -, still in the UX/UI topic, another framework used is vuetify (which already provides built in components). For the map, the project library used is leaflet - extremely focused on performance and usability. Finally, and not least, to manage application states, Vuex is the choice.
 
-> This Project also have a mobile version that works independently. Refer to ```APP.md``` for futher information
+> This Project also have a mobile version that works independently. Refer to ```README.md``` of app directory for futher information.
 
 Below are the links for further details:
 
@@ -64,9 +64,8 @@ yarn account
 
 ### .env
 
-Configure a ```.env``` file
+Configure a ```.env``` file for app folder:
 ```
-PORT=
 VUE_APP_NODE_ENV=
 VUE_APP_BASE_URL=
 VUE_APP_API_URL_DEV=
@@ -91,6 +90,11 @@ VUE_APP_FIREBASE_STORAGE_BUCKET=
 VUE_APP_FIREBASE_MESSAGING_SENDER_ID=
 VUE_APP_FIREBASE_APP_ID=
 VUE_APP_FIREBASE_MEASUREMENT_ID=
+```
+
+Configure a ```.env``` file for root folder (server):
+```
+PORT=
 ```
 
 * ```PORT```

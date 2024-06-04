@@ -22,8 +22,8 @@ class Role(db.Model):
     def id_(self):
         return str(self.id)
 
-    def __init__(self, name, tenant_id, **kwargs):
-        self.id = uuid.uuid1().int >> 100
+    def __init__(self, id, name, tenant_id, **kwargs):
+        self.id = id
         self.name = name
         self.default = False
         self.tenant_id = tenant_id

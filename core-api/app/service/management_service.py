@@ -3,7 +3,7 @@ from app.model.Role import Role
 from app.model.UserRoleTenant import UserRoleTenant
 from app.model.Tenant import Tenant
 from app.model.Scope import Scope
-from app.model.role_scope import RoleScope
+from app.model.RoleScope import RoleScope
 from ext import db
 
 

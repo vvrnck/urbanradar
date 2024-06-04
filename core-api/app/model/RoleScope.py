@@ -7,5 +7,6 @@ class RoleScope(db.Model):
     role_id = db.Column(db.Integer, db.ForeignKey('web.Role.id', ondelete="CASCADE"), primary_key=True)
     scope_id = db.Column(db.Integer, db.ForeignKey('web.Scope.id', ondelete="CASCADE"), primary_key=True)
 
-    def __init__(self, scope_id):
+    def __init__(self, role_id, scope_id):
+        self.role_id = role_id
         self.scope_id = scope_id

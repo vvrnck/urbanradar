@@ -50,7 +50,7 @@ try {
   
   firebase.analytics();
 } catch (e) {
-  console.error("NO ENV VARIABLES!")
+  console.error("[FIREBASE] COULD NOT START FIREBASE!", e)
 }
 
 

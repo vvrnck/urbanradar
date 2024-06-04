@@ -53,7 +53,7 @@
                         </v-text-field>
                     </form>
                 </div>
-                <v-btn block @click="createUser()" :disabled="checkInputs()">
+                <v-btn block @click="createUser" :disabled="checkInputs()">
                     Create Admin User
                 </v-btn>
             </div>
@@ -132,11 +132,11 @@ export default {
                     return this.$store.dispatch('updateSnackbar', snackbar);  
                 }
                 this.showConfig = true;
-                this.getRoles();
+                //this.getRoles();
             });
         },
         async createUser() {
-
+            await this.getRoles();
             if (!this.roles) return;
             
             let url = getApi('user');

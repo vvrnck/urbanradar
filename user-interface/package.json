@@ -6,6 +6,9 @@
   "repository": "https://github.com/igarape/crimeradar-ui.git",
   "author": "vvrnck",
   "license": "MIT",
+  "engines": {
+    "node": ">=14.10.0 <=16.16.0"
+  },
   "scripts": {
     "serve": "nodemon index.js",
     "build": "cd app/ && yarn install && yarn build",
