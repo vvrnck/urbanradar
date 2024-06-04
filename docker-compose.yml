@@ -34,7 +34,7 @@ services:
   core-api:
     build: ./core-api
     environment:
-      - SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://crimeradar:8eqsso2bJ8yKS5X3@34.67.179.250/teste
+      - SQLALCHEMY_DATABASE_URI=database
     expose:
       - 8000
     labels:
