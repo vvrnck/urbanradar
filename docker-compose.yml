@@ -51,7 +51,7 @@ services:
   # migrate:
   #   build: ./core-api
   #   environment:
-  #     - SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://crimeradar:8eqsso2bJ8yKS5X3@34.67.179.250/teste2
+  #     - SQLALCHEMY_DATABASE_URI=database
   #   command: flask db upgrade
   #   depends_on:
   #     - postgres
