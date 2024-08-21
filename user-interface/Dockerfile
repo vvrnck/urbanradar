@@ -1,23 +1,21 @@
 # compile
 FROM node:16.16.0-alpine as deps
 RUN apk add --no-cache libc6-compat
-WORKDIR /src
+WORKDIR /frontend
 COPY package.json yarn.lock ./
 RUN yarn install --only=production --frozen-lockfile
 
 FROM node:16.16.0-alpine AS builder
-WORKDIR /src
+WORKDIR /frontend
 COPY . .
-COPY --from=deps /src/node_modules ./node_modules
+COPY --from=deps /frontend/node_modules ./node_modules
 RUN yarn build
 
 # production
 FROM node:16.16.0-alpine as production-stage
 WORKDIR /frontend
-COPY --from=builder /src .
+COPY --from=builder /frontend .
+RUN apk add --no-cache make
+RUN chmod +x start.sh
 
-RUN yarn account
-
-EXPOSE 3000
-
-CMD [ "node", "index.js" ]
+CMD ["sh", "./start.sh"]

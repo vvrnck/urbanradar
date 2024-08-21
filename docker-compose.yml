@@ -10,13 +10,6 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
   
-  # postgres:
-  #   image: postgres
-  #   environment:
-  #     - POSTGRES_PASSWORD=postgres
-  #     - POSTGRES_USER=postgres
-  #     - POSTGRES_DB=postgres
-
 
   db:
     build:
@@ -26,10 +19,16 @@ services:
     restart: unless-stopped
     ports:
       - 5432:5432
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
+    env_file:
+      - ./database/.env
+    container_name: database-urbanmap
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 5s
+    # uncomment this to insert custom sql (use database init-schema.sql)
     # volumes:
     #   - ./database/init-schema.sql:/docker-entrypoint-initdb.d/init-schema.sql
 
@@ -38,23 +37,20 @@ services:
     env_file:
       - ./user-interface/.env
     # volumes:
-    #   - ./user-interface/account:/frontend/app/account.txt
-    expose:
-      - 3000
+    #   - ./user-interface:/frontend
     ports:
-      - 3000:3000
+      - "3000:3000"
     labels:
       - traefik.enable=true
       - traefik.http.routers.userinterface.entrypoints=web
       - traefik.http.middlewares.stripprefix-auth.stripprefix.prefixes=/ui
       - traefik.http.routers.userinterface.rule=PathPrefix(`/ui`)
       - traefik.http.routers.userinterface.middlewares=stripprefix-auth@docker
+    command: make account start
     container_name: user-interface
   
   core-api:
     build: ./core-api
-    environment:
-      - SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://postgres:postgres@urbanradar-db-1:5432/postgres
     env_file:
       - ./core-api/.env
     volumes:
@@ -69,16 +65,7 @@ services:
       - traefik.http.routers.coreservice.middlewares=stripprefix-core@docker
     command: make migrate fixture start
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     ports:
       - 8000:8000
-
-  # migrate:
-  #   build: ./core-api
-  #   environment:
-  #     - SQLALCHEMY_DATABASE_URI=database
-  #   command: flask db upgrade
-  #   depends_on:
-  #     - postgres
-  #     - core-api
-    

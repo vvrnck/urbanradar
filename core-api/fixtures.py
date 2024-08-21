@@ -1,3 +1,4 @@
+import os
 from datetime import datetime
 from app import create_app, db
 from app.model import Tenant, Section, User, Layer, Scope, Role, RoleScope, UserRoleTenant
@@ -9,12 +10,13 @@ app = create_app()
 def insert_data():
     with app.app_context():
         # Insert data into Tenant
+        tenant_id = 1
         tenant = Tenant(
-            id=1,
-            name='Criciuma',
-            city='Criciuma',
-            city_code='SC',
-            country='Santa Catarina',
+            id=tenant_id,
+            name='Urbanradar',
+            city='Urbanradar',
+            city_code='UR',
+            country='Brazil',
             status=1,
             last_update=datetime.utcnow(),
             creation_date=datetime.utcnow()
@@ -27,10 +29,10 @@ def insert_data():
         # Insert data into Section
         section = Section(
             tenant=1,
-            name='Past Incidents',
+            name='Occurencies',
             icon='mdi-layers',
             order=1,
-            label={'en': 'Past Incidents', 'pt': 'Ocorrências'},
+            label={'en': 'Occurencies', 'pt': 'Ocorrências'},
             creation_date=datetime.utcnow(),
             last_update=datetime.utcnow()
         )
@@ -42,19 +44,9 @@ def insert_data():
         # Insert data into User
         users = [
             User(
-                id=1,
-                uid='vCeFFximIXayqXsMuV6aFsT01c02',
-                name='gabriel',
-                email='gabriel@igarape.org.br',
-                active=True,
-                last_update=datetime.utcnow(),
-                creation_date=datetime.utcnow()
-            ),
-            User(
-                id=2,
-                uid='VOs5Vi4SL7bAHjkhHnVDOLfWhyf2',
-                name='Rodrigo',
-                email='rodrigo.werneck@igarape.org.br',
+                uid=os.environ.get("FIREBASE_ADMIN_UID"),
+                name='admin',
+                email=os.environ.get("FIREBASE_ADMIN_EMAIL"),
                 active=True,
                 last_update=datetime.utcnow(),
                 creation_date=datetime.utcnow()
@@ -62,17 +54,17 @@ def insert_data():
         ]
         for user in users:
             # Check if User already exists
-            if not User.query.get(user.id):
+            existing_user = User.query.filter_by(email=user.email).first() 
+            if not existing_user:
                 db.session.add(user)
                 db.session.commit()
 
         # Insert data into Layer
         section = Section.query.first()
         layer = Layer(
-            id=1,
+            name='Ocurrencies',
             tenant=1,
             id_section=section.id,
-            name='Ocorrências',
             selected=False,
             order=1,
             active=True,
@@ -106,7 +98,8 @@ def insert_data():
                     'type': '!icon'
                 }
             },
-            label={'en': 'Emergency Calls', 'pt': 'Ocorrências'},
+            editable=True,
+            label={'en': 'Occurrencies', 'pt': 'Ocorrências'},
             configurable=True,
             creation_date=datetime.utcnow(),
             last_update=datetime.utcnow()
@@ -172,35 +165,33 @@ def insert_data():
 
         # Insert data into Role
         roles = [
-            (1, 'Administrators', False),
-            (2, 'Users', True)
+            ('Administrators', False, tenant_id),
+            ('Users', True, tenant_id)
         ]
 
-        for role_id, name, is_default in roles:
-            if not Role.query.get(role_id):
+        for name, is_default, tenant_id in roles:
+            if not Role.query.filter_by(name="Administrators").first():
                 db.session.add(Role(
-                    id=role_id,
                     name=name,
                     default=is_default,
-                    last_update=datetime.utcnow(),
-                    creation_date=datetime.utcnow(),
-                    tenant_id=1
+                    tenant_id=tenant_id
                 ))
                 db.session.commit()
 
-        # Insert data into RoleScope
-        for scope_id in range(1, 40):
-            if not RoleScope.query.filter_by(role_id=1, scope_id=scope_id).first():
+        # Insert data into RoleScope - making admin have all scopes
+        admin_role = Role.query.filter_by(name="Administrators").first()
+        for scope_id in range(1, len(scopes)):            
+            if not RoleScope.query.filter_by(role_id=admin_role.id, scope_id=scope_id).first():
                 db.session.add(RoleScope(
-                    role_id=1,
+                    role_id=admin_role.id,
                     scope_id=scope_id
                 ))
                 db.session.commit()
 
         # Insert data into UserRoleTenant
+        user = User.query.first()
         user_role_tenants = [
-            (1, 1, 1),
-            (2, 1, 1)
+            (user.id, admin_role.id, 1),
         ]
 
         for user_id, role_id, tenant_id in user_role_tenants:

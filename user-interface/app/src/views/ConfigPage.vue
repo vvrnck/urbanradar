@@ -53,7 +53,7 @@
                         </v-text-field>
                     </form>
                 </div>
-                <v-btn block @click="createUser" :disabled="checkInputs()">
+                <v-btn block @click="createUser()" :disabled="checkInputs()">
                     Create Admin User
                 </v-btn>
             </div>
@@ -136,24 +136,21 @@ export default {
             });
         },
         async createUser() {
-            await this.getRoles();
-            if (!this.roles) return;
+            const roles = await this.getRoles();
+            if (isEmpty(roles)) return;
             
-            let url = getApi('user');
+            let url = getApi('user/config');
             const data = this.data;
 
-            firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
+            firebase.auth().createUserWithEmailAndPassword(data.user.email, data.user.password)
                 .then(firebaseResponse => {
-
-                    const adminRole = this.roles.filter(item => item.name === "admin");
 
                     let sendData = {
                         uid: firebaseResponse.user.uid,
                         email: firebaseResponse.user.email,
                         name: data.user.email,
-                        role: adminRole,
                         active: true, 
-                        roles: this.roles
+                        roles: roles
                     }
 
                     axios.post(url, sendData).then(response => {
@@ -193,28 +190,35 @@ export default {
                     //this.modal = { open: false, type: { type: '', title: '' }, mode: '' };
                 })
         },
-        getRoles() {
-            let roles_url = getApi('role');
-            axios.get(roles_url)
-                .then(response => {
-                    const { data, errors } = response.data;
+        async getRoles() {
+            let roles_url = getApi('role/config');
+            try {
+                const response = await axios.get(roles_url);
+                const { data, errors } = response.data;
 
-                    if (!isEmpty(errors)) {
-                        return getErrors(errors);
-                    }
+                if (!isEmpty(errors)) {
+                    getErrors(errors); // Handle errors appropriately
+                    return []; // Return an empty array or appropriate value in case of error
+                }
 
-                    this.defaultRoles = data;
-                    let roles = [];
-                    data.map(role => {
-                        roles.push(role.name)
-                    })
-                    this.roles = roles;
-                })
-                .catch((err) => {
-                    const snackbar = { open: true, color: '', text: 'error_load_roles', timeout: 2500, type: 'error' }; 
-                    this.$store.dispatch('updateSnackbar', snackbar);
-                });
+                return data; // Return the roles data
+            } catch (err) {
+                const snackbar = { open: true, color: '', text: 'error_load_roles', timeout: 2500, type: 'error' }; 
+                this.$store.dispatch('updateSnackbar', snackbar);
+                return []; // Return an empty array or appropriate value in case of error
+            }
         },
+        deleteUserFirebase(email, password) {
+            firebase.auth().signInWithEmailAndPassword(email, password)
+                .then(firebaseResponse => {
+                    if (firebaseResponse.user) {
+                        firebaseResponse.user.delete().then(() => {
+                            console.log('user created on firebase, but deleted cause an API error')
+                        });
+                    }
+                })
+                .catch(err => console.log('error to delete user created on firebase'));
+        }
     }
 }
 </script>

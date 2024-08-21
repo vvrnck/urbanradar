@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="-12.907 150.946 526.59 210.35" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
+  <defs>
+    <style bx:fonts="Actor">@import url(https://fonts.googleapis.com/css2?family=Actor%3Aital%2Cwght%400%2C400&amp;display=swap);</style>
+  </defs>
+  <rect x="-12.907" y="150.946" width="526.59" height="210.35"/>
+  <polygon class="cls-2" points="94.143 316.816 34.853 282.586 34.853 214.086 94.163 179.836 125.863 198.026 126.863 198.606 126.863 209.026 94.183 190.216 43.853 219.276 43.853 277.386 94.203 306.456 126.863 288.026 126.863 298.416 94.143 316.816" style="fill: rgb(82, 255, 238);"/>
+  <line class="cls-3" x1="91.753" y1="254.346" x2="100.653" y2="249.286" style="fill: none; stroke: rgb(82, 255, 238); stroke-miterlimit: 10;"/>
+  <circle class="cls-3" cx="102.503" cy="248.276" r="1.9" style="fill: none; stroke: rgb(82, 255, 238); stroke-miterlimit: 10;"/>
+  <polyline class="cls-3" points="69.233 235.926 89.083 246.716 97.983 241.646" style="fill: none; stroke: rgb(82, 255, 238); stroke-miterlimit: 10;"/>
+  <circle class="cls-3" cx="99.833" cy="240.636" r="1.9" style="fill: none; stroke: rgb(82, 255, 238); stroke-miterlimit: 10;"/>
+  <line class="cls-3" x1="77.403" y1="240.296" x2="86.943" y2="234.886" style="fill: none; stroke: rgb(82, 255, 238); stroke-miterlimit: 10;"/>
+  <circle class="cls-2" cx="88.093" cy="234.046" r="1.9" style="fill: rgb(82, 255, 238);"/>
+  <line class="cls-3" x1="69.893" y1="249.926" x2="85.953" y2="258.386" style="fill: none; stroke: rgb(82, 255, 238); stroke-miterlimit: 10;"/>
+  <line class="cls-3" x1="69.013" y1="242.336" x2="98.883" y2="258.096" style="fill: none; stroke: rgb(82, 255, 238); stroke-miterlimit: 10;"/>
+  <polygon class="cls-4" points="116.813 234.396 116.813 261.276 92.813 274.716 68.813 261.276 68.813 234.396 92.813 220.956 116.813 234.396" style="fill: none; stroke: rgb(82, 255, 238); stroke-miterlimit: 10; stroke-width: 3px;"/>
+  <circle class="cls-3" cx="87.453" cy="259.066" r="1.9" style="fill: none; stroke: rgb(82, 255, 238); stroke-miterlimit: 10;"/>
+  <circle class="cls-2" cx="100.403" cy="258.976" r="1.9" style="fill: rgb(82, 255, 238);"/>
+  <text style="fill: rgb(255, 255, 255); font-family: Actor; font-size: 55px; font-weight: 700; white-space: pre;" transform="matrix(1, 0, 0, 1, 30.050713, 28.37171)"><tspan x="141.218" y="210.565">URBAN</tspan><tspan x="141.218" dy="1em">​</tspan><tspan>MAP</tspan></text>
+</svg>

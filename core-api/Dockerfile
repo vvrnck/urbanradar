@@ -14,10 +14,6 @@ RUN apt-get update && \
 
 # Copy local code to the container image.
 ENV APP_HOME /app
-ENV JSON_RESPONSE='{"data": [], "errors": []}'
-# ENV GOOGLE_APPLICATION_CREDENTIALS="./service-account.json"
-# ENV PROJECT_ID="crimeradar-dev"
-# ENV SECRET_ID="firebase-crimeradar"
 
 WORKDIR $APP_HOME
 COPY . ./
