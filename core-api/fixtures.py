@@ -170,7 +170,7 @@ def insert_data():
         ]
 
         for name, is_default, tenant_id in roles:
-            if not Role.query.filter_by(name="Administrators").first():
+            if not Role.query.filter_by(name=name).first():
                 db.session.add(Role(
                     name=name,
                     default=is_default,
@@ -180,7 +180,7 @@ def insert_data():
 
         # Insert data into RoleScope - making admin have all scopes
         admin_role = Role.query.filter_by(name="Administrators").first()
-        for scope_id in range(1, len(scopes)):            
+        for scope_id, name, permission, description in scopes:         
             if not RoleScope.query.filter_by(role_id=admin_role.id, scope_id=scope_id).first():
                 db.session.add(RoleScope(
                     role_id=admin_role.id,
