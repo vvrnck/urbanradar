@@ -11,3 +11,4 @@ from app.model.Tenant import Tenant
 from app.model.User import User
 from app.model.UserRoleTenant import UserRoleTenant
 from app.model.AuditLog import AuditLog
+from app.model.FeatureCollection import FeatureCollection

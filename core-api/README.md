@@ -31,3 +31,9 @@
 
 ### Running pytest
     pytest
+
+### Updating Database Migrations
+
+```
+flask db migrate -m "<migration_name>"
+```

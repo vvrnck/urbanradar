@@ -1,1 +1,7 @@
 Generic single-database configuration.
+
+update:
+
+```
+flask db revision --autogenerate -m "<message>"
+```
